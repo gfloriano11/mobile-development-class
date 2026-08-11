@@ -147,14 +147,24 @@ void imprimirRecibo(Pedido pedido) {
   print('Cupom: ${pedido.cupom} \n');
   
   for (var (index, item) in pedido.itens.indexed) {
-    print('${index}. ${item.jogo.titulo} \n');
-    print('Plataforma: ${item.jogo.plataforma} \n');
-    print('Preço unitário: ${dinheiro(item.jogo.preco)} \n');
-    print('Quantidade: ${item.quantidade} \n');
-    print('Desconto extra: ${dinheiro(item.descontoExtra)} \n');
-    print('Subtotal: ${item.subtotal} \n');
-    print('----------------------------------');
+    print('${index}. ${item.jogo.titulo}');
+    print('Plataforma: ${item.jogo.plataforma}');
+    print('Preço unitário: ${dinheiro(item.jogo.preco)}');
+    print('Quantidade: ${item.quantidade}');
+    print('Desconto extra: ${dinheiro(item.descontoExtra)}');
+    print('Subtotal: ${item.subtotal}');
+    print('----------------------------------\n');
   }
+
+  print('Subtotal dos itens: ${dinheiro(pedido.subtotalDosItens)}');
+  print('Desconto do cupom: ${dinheiro(pedido.valorDoDesconto)}');
+  print('Frete: ${dinheiro(pedido.valorDoFrete)}');
+
+  print('TOTAL FINAL: ${dinheiro(pedido.totalFinal)}');
+  print('Classificação: ${pedido.classificacao}');
+
+  print('Quantidade de produtos diferentes: ${pedido.itens.length}');
+  print('Quantidade total de unidades: ${pedido.quantidadeTotalDeUnidades}');
 }
  
 void main() {

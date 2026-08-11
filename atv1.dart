@@ -149,9 +149,9 @@ void imprimirRecibo(Pedido pedido) {
   for (var (index, item) in pedido.itens.indexed) {
     print('${index}. ${item.jogo.titulo} \n');
     print('Plataforma: ${item.jogo.plataforma} \n');
-    print('Preço unitário: RS ${item.jogo.preco} \n');
+    print('Preço unitário: ${dinheiro(item.jogo.preco)} \n');
     print('Quantidade: ${item.quantidade} \n');
-    print('Desconto extra: ${item.descontoExtra} \n');
+    print('Desconto extra: ${dinheiro(item.descontoExtra)} \n');
     print('Subtotal: ${item.subtotal} \n');
     print('----------------------------------');
   }

@@ -2,7 +2,7 @@
 // Complete os trechos marcados com TODO.
 // O programa deve funcionar no DartPad sem entrada pelo terminal.
  
-// String dinheiro(double valor) => 'R$\ ${valor.toStringAsFixed(2)}';
+String dinheiro(double valor) => 'R\$ ${valor.toStringAsFixed(2)}';
  
 class Jogo {
   final String titulo;
@@ -39,7 +39,7 @@ class Jogo {
         // TODO 1: (FEITO)
         // Calcular o preço final aplicando o percentual de desconto.
 
-        preco = precoOriginal * (percentualDesconto~/100);
+        preco = precoOriginal - (precoOriginal*(percentualDesconto/100));
 
 }
  
@@ -49,11 +49,9 @@ class ItemCarrinho {
   final double descontoExtra;
  
   const ItemCarrinho({
-
     required this.jogo,
     required this.quantidade,
     this.descontoExtra = 0,
-
   })  : assert(quantidade > 0, 'A quantidade deve ser maior que zero.'),
 
         assert(
@@ -63,7 +61,7 @@ class ItemCarrinho {
  
   // TODO 2 (FEITO):
   // Retornar preço do jogo × quantidade, aplicando o desconto extra.
-  double get subtotal => (jogo.preco * (descontoExtra/100))*quantidade;
+  double get subtotal => (jogo.preco - (jogo.preco*(descontoExtra/100)))*quantidade;
 
 }
  

@@ -36,39 +36,37 @@ class Bbs {
     required this.mensagens,
   });
 
-  // TODO 1:
+  // TODO 1 (FEITO):
   // Retorne a quantidade total de mensagens cadastradas na BBS.
   int get totalMensagens => (this.mensagens.length);
 
-  // TODO 2:
+  // TODO 2 (FEITO):
   // Some o número de visualizações de todas as mensagens.
   // O valor deve ser calculado a partir da lista "mensagens".
-  int get totalVisualizacoes => (this.mensagens.fold(0, (total, msg) => total + msg.visualizacoes));
+  int get totalVisualizacoes => (this.mensagens.fold(
+    0, (total, msg) => total + msg.visualizacoes
+  ));
 
-  // TODO 3:
+  // TODO 3 (FEITO):
   // Conte quantas mensagens possuem nova == true.
   int get mensagensNovas => (this.mensagens.where((m) => m.nova)).toList().length;
 
-  // TODO 4:
+  // TODO 4 (FEITO):
   // Retorne uma lista contendo os nomes das áreas existentes,
   // sem repetir nomes. Ex.: ['GERAL', 'GAMES', 'TECNOLOGIA'].
   List<String> get areas => (this.mensagens.map((m) => m.area)).toSet().toList();
 
-  // TODO 5:
+  // TODO 5 (FEITO):
   // Retorne apenas as mensagens pertencentes à área informada.
   // A comparação deve ignorar maiúsculas/minúsculas.
-  List<Mensagem> mensagensDaArea(String nomeArea) {
-    return this.mensagens
-      .where((m) => m.area.trim().toLowerCase() == nomeArea.toLowerCase())
-      .toList();
-  }
+  List<Mensagem> mensagensDaArea(String nomeArea) => (this.mensagens.where(
+    (m) => m.area.trim().toLowerCase() == nomeArea.toLowerCase()).toList()
+  );
 
-  // TODO 6:
+  // TODO 6 (FEITO:
   // Procure uma mensagem pelo id.
   // Retorne a mensagem encontrada ou null se o id não existir.
-  Mensagem? buscarMensagem(int id) {
-    return this.mensagens.firstWhere((m) => m.id == id);
-  }
+  Mensagem? buscarMensagem(int id) => (this.mensagens.firstWhere((m) => m.id == id));
 }
 
 void imprimirCabecalho(Bbs bbs) {
@@ -82,6 +80,13 @@ void imprimirCabecalho(Bbs bbs) {
   // Modem: 14400 bps
   // Mensagens: 6 | Novas: 3
   //
+
+  print("===============================");
+  print("         BYTE LINE BBS         ");
+  print("===============================");
+  print("SysOp: Morgan");
+  print('Mensagens: ${bbs.totalMensagens} | Novas: ${bbs.mensagensNovas}\n');
+
 }
 
 void imprimirMenu(Bbs bbs) {
@@ -92,6 +97,11 @@ void imprimirMenu(Bbs bbs) {
   // Exemplo:
   // [1] GERAL       - 2 mensagens
   // [2] GAMES       - 2 mensagens
+  print("ÁREAS DISPONÍVEIS");
+  print('[1] GERAL - ${bbs.mensagensDaArea("GERAL").length} mensagens');
+  print('[2] GAMES - ${bbs.mensagensDaArea("GAMES").length} mensagens');
+  print('[3] TECNOLOGIA - ${bbs.mensagensDaArea("TECNOLOGIA").length} mensagens');
+  print('[4] DOWNLOADS - ${bbs.mensagensDaArea("DOWNLOADS").length} mensagens\n');
 }
 
 void imprimirArea(Bbs bbs, String area) {
@@ -103,6 +113,17 @@ void imprimirArea(Bbs bbs, String area) {
   // Exemplo:
   // #03 [NOVO] Doom: dicas para o episódio 1
   //     por: Raven | visualizações: 42
+  print('=== ÁREA: ${area} ===');
+  final mensagensDaArea = bbs.mensagensDaArea(area);
+
+  for (Mensagem m in mensagensDaArea) {
+    final titulo = m.nova 
+      ? '[NOVO] ${m.titulo}' 
+      : m.titulo;
+
+    print('#${m.id} ${titulo}');
+    print('   por: ${m.autor} | visualizações: ${m.visualizacoes}');
+  }
 }
 
 void imprimirMensagem(Bbs bbs, int id) {
@@ -110,6 +131,18 @@ void imprimirMensagem(Bbs bbs, int id) {
   // Use buscarMensagem(id).
   // Se não existir, imprima "Mensagem não encontrada."
   // Se existir, imprima os dados e o conteúdo da mensagem.
+  final msg = bbs.buscarMensagem(id);
+  if (msg == null) {
+    print("Mensagem não encontrada");
+    return;
+  }
+
+  print('Título: ${msg.titulo}');
+  print('Autor: ${msg.autor}');
+  print('Área: ${msg.area}');
+  print('Visualizações: ${msg.visualizacoes}');
+  print('----------------------------------------------');
+  print(msg.conteudo);
 }
 
 void imprimirEstatisticas(Bbs bbs) {
@@ -121,6 +154,11 @@ void imprimirEstatisticas(Bbs bbs) {
   // - total de visualizações
   //
   // Todos os valores devem ser calculados.
+
+  print('Áreas: ${bbs.areas.length}');
+  print('Mensagens: ${bbs.totalMensagens}');
+  print('Mensagens novas: ${bbs.mensagensNovas}');
+  print('Mensagens novas: ${bbs.totalVisualizacoes}');
 }
 
 void main() {

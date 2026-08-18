@@ -63,14 +63,14 @@ class Bbs {
     (m) => m.area.trim().toLowerCase() == nomeArea.toLowerCase()).toList()
   );
 
-  // TODO 6 (FEITO:
+  // TODO 6 (FEITO):
   // Procure uma mensagem pelo id.
   // Retorne a mensagem encontrada ou null se o id não existir.
   Mensagem? buscarMensagem(int id) => (this.mensagens.firstWhere((m) => m.id == id));
 }
 
 void imprimirCabecalho(Bbs bbs) {
-  // TODO 7:
+  // TODO 7 (FEITO):
   // Imprima um cabeçalho semelhante a:
   //
   // ==========================================
@@ -90,7 +90,7 @@ void imprimirCabecalho(Bbs bbs) {
 }
 
 void imprimirMenu(Bbs bbs) {
-  // TODO 8:
+  // TODO 8 (FEITO):
   // Imprima "ÁREAS DISPONÍVEIS" e liste todas as áreas.
   // Ao lado de cada área, mostre quantas mensagens ela possui.
   //
@@ -105,7 +105,7 @@ void imprimirMenu(Bbs bbs) {
 }
 
 void imprimirArea(Bbs bbs, String area) {
-  // TODO 9:
+  // TODO 9 (FEITO):
   // Liste as mensagens da área recebida.
   // Para cada mensagem, mostre:
   // ID, indicador [NOVO] quando nova == true, título, autor e visualizações.
@@ -127,7 +127,7 @@ void imprimirArea(Bbs bbs, String area) {
 }
 
 void imprimirMensagem(Bbs bbs, int id) {
-  // TODO 10:
+  // TODO 10 (FEITO):
   // Use buscarMensagem(id).
   // Se não existir, imprima "Mensagem não encontrada."
   // Se existir, imprima os dados e o conteúdo da mensagem.
@@ -146,7 +146,7 @@ void imprimirMensagem(Bbs bbs, int id) {
 }
 
 void imprimirEstatisticas(Bbs bbs) {
-  // TODO 11:
+  // TODO 11 (FEITO):
   // Mostre:
   // - quantidade de áreas
   // - total de mensagens

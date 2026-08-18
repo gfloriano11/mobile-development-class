@@ -151,7 +151,7 @@ void imprimirRecibo(Pedido pedido) {
     print('Plataforma: ${item.jogo.plataforma}');
     print('Preço unitário: ${dinheiro(item.jogo.preco)}');
     print('Quantidade: ${item.quantidade}');
-    print('Desconto extra: ${dinheiro(item.descontoExtra)}');
+    print('Desconto extra: ${item.descontoExtra}%');
     print('Subtotal: ${item.subtotal}');
     print('----------------------------------\n');
   }

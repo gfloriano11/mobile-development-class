@@ -158,7 +158,7 @@ void imprimirEstatisticas(Bbs bbs) {
   print('Áreas: ${bbs.areas.length}');
   print('Mensagens: ${bbs.totalMensagens}');
   print('Mensagens novas: ${bbs.mensagensNovas}');
-  print('Mensagens novas: ${bbs.totalVisualizacoes}');
+  print('Visualizações: ${bbs.totalVisualizacoes}');
 }
 
 void main() {

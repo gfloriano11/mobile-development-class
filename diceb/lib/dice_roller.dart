@@ -40,10 +40,10 @@ class _DiceRollerState extends State<DiceRoller> {
             // ),
             foregroundColor: Colors.white,
             textStyle: const TextStyle(
-              fontSize: 28,
+              fontSize: 32,
             ),
           ),
-          child: const Text('Roll Dice'),
+          child: const Text('Rolar dado'),
         )
       ],
     );

@@ -25,6 +25,7 @@ class _AppState extends State<App> {
   final List<String> currentWordTranslations = [];
 
   void seeTranslations(int index) {
+    if (currentWordTranslations.isNotEmpty) clearCurrentWords();
     words.forEach((key, value) {
       if (key != mainLanguage) {
         var currentLanguageWordsList = words[key].values.toList();
@@ -35,6 +36,32 @@ class _AppState extends State<App> {
         );
       }
     });
+  }
+
+  void nextWord() {
+    setState(() {
+      if (currentIndex >= mainLanguageWords.length - 1) {
+        currentIndex = 0;
+      } else {
+        currentIndex++;
+      }
+      clearCurrentWords();
+    });
+  }
+
+  void previousWord() {
+    setState(() {
+      if (currentIndex > 0) {
+        currentIndex--;
+      } else {
+        currentIndex = mainLanguageWords.length - 1;
+      }
+      clearCurrentWords();
+    });
+  }
+
+  void clearCurrentWords() {
+    setState(() => currentWordTranslations.clear());
   }
 
   @override
@@ -62,15 +89,13 @@ class _AppState extends State<App> {
         if (currentWordTranslations.isNotEmpty)
           Translations(translations: currentWordTranslations),
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextButton(
-              onPressed: () => seeTranslations(currentIndex),
-              child: Text("prox."),
+              onPressed: previousWord,
+              child: Text("Palavra anterior"),
             ),
-            TextButton(
-              onPressed: () => seeTranslations(currentIndex),
-              child: Text("anterior"),
-            ),
+            TextButton(onPressed: nextWord, child: Text("Próxima palavra")),
           ],
         ),
       ],

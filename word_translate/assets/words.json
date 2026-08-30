@@ -1,0 +1,29 @@
+{
+  "pt-br": {
+    "house": "casa",
+    "friend": "amigo",
+    "baker": "padeiro",
+    "water": "água",
+    "sugar": "açucar",
+    "smartphone": "celular",
+    "milk": "leite"
+  },
+  "en-us": {
+    "house": "house",
+    "friend": "friend",
+    "baker": "baker",
+    "water": "water",
+    "sugar": "sugar",
+    "smartphone": "smartphone",
+    "milk": "milk"
+  },
+  "de": {
+    "house": "haus",
+    "friend": "fruend",
+    "baker": "backer",
+    "water": "wasser",
+    "sugar": "zucker",
+    "smartphone": "handy",
+    "milk": "milch"
+  }
+}

@@ -1,29 +1,38 @@
 {
   "pt-br": {
-    "house": "casa",
-    "friend": "amigo",
-    "baker": "padeiro",
-    "water": "água",
-    "sugar": "açucar",
-    "smartphone": "celular",
-    "milk": "leite"
+    "house": "Casa",
+    "friend": "Amigo",
+    "baker": "Padeiro",
+    "water": "Água",
+    "sugar": "Açúcar",
+    "smartphone": "Celular",
+    "milk": "Leite",
+    "book": "Livro",
+    "school": "Escola",
+    "bread": "Pão"
   },
   "en-us": {
-    "house": "house",
-    "friend": "friend",
-    "baker": "baker",
-    "water": "water",
-    "sugar": "sugar",
-    "smartphone": "smartphone",
-    "milk": "milk"
+    "house": "House",
+    "friend": "Friend",
+    "baker": "Baker",
+    "water": "Water",
+    "sugar": "Sugar",
+    "smartphone": "Smartphone",
+    "milk": "Milk",
+    "book": "Book",
+    "school": "School",
+    "bread": "Bread"
   },
   "de": {
-    "house": "haus",
-    "friend": "fruend",
-    "baker": "backer",
-    "water": "wasser",
-    "sugar": "zucker",
-    "smartphone": "handy",
-    "milk": "milch"
+    "house": "Haus",
+    "friend": "Freund",
+    "baker": "Bäcker",
+    "water": "Wasser",
+    "sugar": "Zucker",
+    "smartphone": "Handy",
+    "milk": "Milch",
+    "book": "Buch",
+    "school": "Schule",
+    "bread": "Brot"
   }
 }

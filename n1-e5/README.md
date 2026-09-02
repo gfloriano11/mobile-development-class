@@ -1,3 +1,4 @@
-# word_translate
+# word_translate e1-n5
 
-A new Flutter project.
+basicamente, é o trabalho da e4 mas com uma lib pra ouvir a tradução das palavras.
+apenas para mobile.

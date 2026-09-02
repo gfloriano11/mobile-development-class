@@ -81,7 +81,8 @@ class _AppState extends State<App> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        MainWord(text: mainLanguageWords[currentIndex] ?? ""),
+        if (mainLanguageWords.isNotEmpty)
+          MainWord(text: mainLanguageWords[currentIndex] ?? ""),
         TextButton(
           onPressed: () => seeTranslations(currentIndex),
           child: Text("Ver tradução"),

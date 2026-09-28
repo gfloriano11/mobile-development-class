@@ -9,7 +9,7 @@ class Home extends StatefulWidget {
 }
 
 class _Home extends State<Home> {
-  List<String> tasks = ["Fazer TODO LIST Mobile"];
+  List<String> tasks = [];
   final TextEditingController _controller = TextEditingController();
   bool isAddingTask = false;
 

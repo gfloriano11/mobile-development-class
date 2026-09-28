@@ -18,15 +18,12 @@ class _MainApp extends State<MainApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(title: Text("Minha lista de tarefas")),
-        body: Center(child: Home()),
-        // floatingActionButton: FloatingActionButton(
-        //   foregroundColor: Colors.black,
-        //   onPressed: () => setState(() {
-        //     isAddingTask = !isAddingTask;
-        //   }),
-        //   backgroundColor: Colors.green,
-        //   child: isAddingTask ? const Icon(Icons.close) : const Icon(Icons.add),
-        // ),
+        body: SafeArea(
+          child: Padding(
+            padding: EdgeInsetsGeometry.all(8),
+            child: Center(child: Home()),
+          ),
+        ),
       ),
     );
   }

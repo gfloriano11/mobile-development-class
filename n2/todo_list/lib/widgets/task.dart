@@ -21,34 +21,34 @@ class _Task extends State<Task> {
     return Card(
       child: ConstrainedBox(
         constraints: BoxConstraints(maxWidth: 800),
-        child: Row(
-          children: [
-            Checkbox(
-              onChanged: (bool? changed) => onChange(changed),
-              value: checked,
-              fillColor: WidgetStateProperty.resolveWith<Color>((
-                Set<WidgetState> states,
-              ) {
-                if (states.contains(WidgetState.selected)) return Colors.green;
-                return Colors.white;
-              }),
-              checkColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
+        child: CheckboxListTile(
+          controlAffinity: ListTileControlAffinity.leading,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          checkboxShape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          fillColor: WidgetStateProperty.resolveWith<Color>((
+            Set<WidgetState> states,
+          ) {
+            if (states.contains(WidgetState.selected)) return Colors.green;
+            return Colors.white;
+          }),
+          checkColor: Colors.white,
+          value: checked,
+          onChanged: (value) {
+            setState(() {
+              checked = value ?? false;
+            });
+          },
+          title: Text(
+            widget.content,
+            style: TextStyle(
+              color: checked ? Colors.grey : Colors.black,
+              decoration: checked
+                  ? TextDecoration.lineThrough
+                  : TextDecoration.none,
             ),
-            Container(
-              padding: EdgeInsetsGeometry.all(16),
-              child: Text(
-                widget.content,
-                style: TextStyle(
-                  decoration: checked
-                      ? TextDecoration.lineThrough
-                      : TextDecoration.none,
-                ),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );

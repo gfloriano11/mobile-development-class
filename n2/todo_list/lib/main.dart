@@ -13,14 +13,12 @@ class MainApp extends StatefulWidget {
 }
 
 class _MainApp extends State<MainApp> {
-  bool isAddingTask = false;
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(title: Text("Minha lista de tarefas")),
-        body: Center(child: Home(isAddingTask: isAddingTask)),
+        body: Center(child: Home()),
         // floatingActionButton: FloatingActionButton(
         //   foregroundColor: Colors.black,
         //   onPressed: () => setState(() {

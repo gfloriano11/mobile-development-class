@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todo_list/widgets/task.dart';
 
 class Home extends StatefulWidget {
-  final bool isAddingTask;
-  const Home({super.key, required this.isAddingTask});
+  const Home({super.key});
 
   @override
   State<Home> createState() => _Home();
@@ -12,6 +11,7 @@ class Home extends StatefulWidget {
 class _Home extends State<Home> {
   List<String> tasks = ["Fazer TODO LIST Mobile"];
   final TextEditingController _controller = TextEditingController();
+  bool isAddingTask = false;
 
   void createTask(String title) {
     if (title.trim().isEmpty) {
@@ -25,7 +25,8 @@ class _Home extends State<Home> {
     }
     setState(() {
       tasks.add(title);
-      _controller.value = TextEditingValue.empty;
+      _controller.clear();
+      isAddingTask = false;
     });
   }
 
@@ -35,27 +36,41 @@ class _Home extends State<Home> {
       child: Column(
         spacing: 20,
         children: [
-          if (widget.isAddingTask)
-            ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: 800),
-              child: TextField(
-                autofocus: true,
-                decoration: const InputDecoration(
-                  hintText: "Digite uma tarefa",
+          FilledButton(
+            child: Text(isAddingTask ? "Fechar" : "Adicionar"),
+            onPressed: () => setState(() => isAddingTask = !isAddingTask),
+          ),
+
+          if (isAddingTask)
+            Column(
+              children: [
+                ConstrainedBox(
+                  constraints: BoxConstraints(maxWidth: 800),
+                  child: TextField(
+                    autofocus: true,
+                    decoration: const InputDecoration(
+                      hintText: "Digite uma tarefa",
+                    ),
+                    controller: _controller,
+                    onSubmitted: (text) => createTask(text),
+                  ),
                 ),
-                controller: _controller,
-                onSubmitted: (text) => createTask(text),
-              ),
+              ],
             ),
-          Column(spacing: 3, children: [...tasks.map((t) => Task(content: t))]),
-          // ListView.builder(
-          //   itemBuilder: (ctx, index) {
-          //     return Column(
-          //       spacing: 3,
-          //       children: [...tasks.map((t) => Task(content: t))],
-          //     );
-          //   },
-          // ),
+
+          Expanded(
+            child: ListView.builder(
+              itemCount: tasks.length,
+              itemBuilder: (context, index) {
+                return Center(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 800),
+                    child: Task(content: tasks[index]),
+                  ),
+                );
+              },
+            ),
+          ),
         ],
       ),
     );

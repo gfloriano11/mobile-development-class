@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_list/models/task.dart';
 import 'package:todo_list/widgets/task.dart';
 
 class Home extends StatefulWidget {
@@ -9,7 +10,7 @@ class Home extends StatefulWidget {
 }
 
 class _Home extends State<Home> {
-  List<String> tasks = [];
+  List<Task> tasks = [];
   final TextEditingController _controller = TextEditingController();
   bool isAddingTask = false;
 
@@ -24,7 +25,7 @@ class _Home extends State<Home> {
       return;
     }
     setState(() {
-      tasks.add(title);
+      tasks.add(Task(done: false, title: title));
       _controller.clear();
       isAddingTask = false;
     });
@@ -65,7 +66,7 @@ class _Home extends State<Home> {
                 return Center(
                   child: ConstrainedBox(
                     constraints: const BoxConstraints(maxWidth: 800),
-                    child: Task(content: tasks[index]),
+                    child: TaskWidget(task: tasks[index]),
                   ),
                 );
               },

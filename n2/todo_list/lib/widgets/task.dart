@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:todo_list/models/task.dart';
 
-class Task extends StatefulWidget {
-  final String content;
-  const Task({super.key, required this.content});
+class TaskWidget extends StatefulWidget {
+  final Task task;
+  const TaskWidget({super.key, required this.task});
 
   @override
-  State<Task> createState() => _Task();
+  State<TaskWidget> createState() => _TaskWidget();
 }
 
-class _Task extends State<Task> {
+class _TaskWidget extends State<TaskWidget> {
   bool checked = false;
   void onChange(bool? value) {
     setState(() {
-      checked = value ?? false;
+      widget.task.done = value ?? false;
     });
   }
 
@@ -41,7 +42,7 @@ class _Task extends State<Task> {
             });
           },
           title: Text(
-            widget.content,
+            widget.task.title,
             style: TextStyle(
               color: checked ? Colors.grey : Colors.black,
               decoration: checked

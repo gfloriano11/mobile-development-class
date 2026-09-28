@@ -9,23 +9,47 @@ class Task extends StatefulWidget {
 }
 
 class _Task extends State<Task> {
+  bool checked = false;
+  void onChange(bool? value) {
+    setState(() {
+      checked = value ?? false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Card(
       child: ConstrainedBox(
-        constraints: BoxConstraints(
-          maxWidth: 800
-        ),
+        constraints: BoxConstraints(maxWidth: 800),
         child: Row(
-        children: [
-          Container(
-            padding: EdgeInsetsGeometry.all(10),
-            color: Colors.red,
-            child: Text(widget.content),
-          )
-        ],
-      ),
+          children: [
+            Checkbox(
+              onChanged: (bool? changed) => onChange(changed),
+              value: checked,
+              fillColor: WidgetStateProperty.resolveWith<Color>((
+                Set<WidgetState> states,
+              ) {
+                if (states.contains(WidgetState.selected)) return Colors.green;
+                return Colors.white;
+              }),
+              checkColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+            ),
+            Container(
+              padding: EdgeInsetsGeometry.all(16),
+              child: Text(
+                widget.content,
+                style: TextStyle(
+                  decoration: checked
+                      ? TextDecoration.lineThrough
+                      : TextDecoration.none,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

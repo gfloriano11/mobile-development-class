@@ -1,11 +1,11 @@
 import 'package:catalog/models/product.dart';
+import 'package:catalog/screens/catalog.dart';
 import 'package:catalog/screens/lifecycle_history.dart';
 import 'package:catalog/screens/transformations.dart';
-import 'package:catalog/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const Main());
 }
 
 List<Product> list = [
@@ -35,14 +35,14 @@ List<Product> list = [
   ),
 ];
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+class Main extends StatefulWidget {
+  const Main({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<Main> createState() => _MainState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MainState extends State<Main> {
   late final AppLifecycleListener _listener;
 
   final List<AppLifecycleState> history = [];
@@ -72,36 +72,29 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Catalog",
-      home: Catalog(
-        history: history,
-      ),
+      home: App(history: history),
     );
   }
 }
 
-class Catalog extends StatefulWidget {
+class App extends StatefulWidget {
   final List<AppLifecycleState> history;
 
-  const Catalog({
-    super.key,
-    required this.history,
-  });
+  const App({super.key, required this.history});
 
   @override
-  State<Catalog> createState() => _CatalogState();
+  State<App> createState() => _AppState();
 }
 
-class _CatalogState extends State<Catalog> {
+class _AppState extends State<App> {
   int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     final pages = [
-      const CatalogPage(),
+      const Catalog(),
       const Transformations(),
-      LifecycleHistory(
-        history: widget.history,
-      ),
+      LifecycleHistory(history: widget.history),
     ];
 
     return Scaffold(
@@ -131,27 +124,6 @@ class _CatalogState extends State<Catalog> {
             label: 'Histórico',
           ),
         ],
-      ),
-    );
-  }
-}
-
-class CatalogPage extends StatelessWidget {
-  const CatalogPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Produtos'),
-      ),
-      body: ListView.builder(
-        itemCount: list.length,
-        itemBuilder: (context, index) {
-          return ProductCard(
-            product: list[index],
-          );
-        },
       ),
     );
   }

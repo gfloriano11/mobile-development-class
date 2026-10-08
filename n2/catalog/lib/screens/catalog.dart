@@ -30,11 +30,8 @@ class Catalog extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Produtos')),
-      body: ListView.builder(
-        itemCount: list.length,
-        itemBuilder: (context, index) {
-          return ProductCard(product: list[index]);
-        },
+      body: ListView(
+        children: [...list.map((p) => ProductCard(product: p)).toList()],
       ),
     );
   }

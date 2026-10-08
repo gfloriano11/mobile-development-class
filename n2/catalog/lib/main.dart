@@ -1,4 +1,3 @@
-import 'package:catalog/models/product.dart';
 import 'package:catalog/screens/catalog.dart';
 import 'package:catalog/screens/lifecycle_history.dart';
 import 'package:catalog/screens/transformations.dart';
@@ -7,33 +6,6 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(const Main());
 }
-
-List<Product> list = [
-  Product(
-    description: "Televisão 42pol. Full HD.",
-    name: "Televisão",
-    price: 67.0,
-    quantity: 9,
-  ),
-  Product(
-    description: "Samsung com windows 11. 500GB e 16GB de RAM.",
-    name: "Notebook",
-    price: 61.67,
-    quantity: 26,
-  ),
-  Product(
-    description: "Samsung S24 256GB e 8GB de RAM",
-    name: "Celular",
-    price: 42,
-    quantity: 15,
-  ),
-  Product(
-    description: "Console PlayStation 5. Spider-Man incluso.",
-    name: "PS5",
-    price: 67000.99,
-    quantity: 120,
-  ),
-];
 
 class Main extends StatefulWidget {
   const Main({super.key});

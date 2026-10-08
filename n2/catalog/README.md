@@ -1,17 +1,31 @@
-# catalog
+# Catálogo
 
-A new Flutter project.
+Aplicativo desenvolvido para a atividade N2 de Desenvolvimento Mobile.
 
-## Getting Started
+## Integrante
 
-This project is a starting point for a Flutter application.
+- Gustavo Floriano
 
-A few resources to get you started if this is your first Flutter project:
+## Descrição
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+Aplicativo Flutter desenvolvido para demonstrar:
+- Catálogo de produtos;
+- Navegação entre telas;
+- Uso de Navigator.push() e Navigator.pop();
+- Transformação de listas com map() e toList();
+- Criação de widgets a partir de listas;
+- Acompanhamento do ciclo de vida do aplicativo.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Como executar
+
+1. Ter o Flutter instalado e configurado.
+2. Clonar ou extrair o projeto.
+3. Abrir a pasta do projeto no terminal.
+4. Executar:
+
+flutter pub get
+
+5. Iniciar um dispositivo Android ou emulador.
+6. Executar:
+
+flutter run

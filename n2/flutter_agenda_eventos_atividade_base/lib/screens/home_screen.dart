@@ -70,12 +70,22 @@ class _HomeScreenState extends State<HomeScreen> {
   // Abra DetalhesEventoScreen usando Navigator.push e aguarde um bool.
   // Se voltar true, remova o evento da lista. Caso contrario, atualize a tela.
   Future<void> _abrirDetalhes(Evento evento) async {
-    await Navigator.push(
+    final result = await Navigator.push<bool>(
       context,
       MaterialPageRoute(
-        builder: (BuildContext context) => DetalhesEventoScreen(evento: evento)
+        builder: (BuildContext context) =>DetalhesEventoScreen(evento: evento)
       )
     );
+
+    if (result == true) {
+      setState(() {
+        _eventos = _eventos
+          .where((e) => e.id != evento.id)
+          .toList();
+      });
+    } else {
+      setState(() {});
+    }
   }
 
   // TODO_ATIVIDADE_03

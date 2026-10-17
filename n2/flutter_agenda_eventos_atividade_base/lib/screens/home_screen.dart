@@ -77,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     if (result == true) {
       setState(() {
-        _eventos = _eventos.where((e) => e.id != evento.id).toList();
+        _eventos.removeWhere((e) => e.id == evento.id);
       });
     } else {
       setState(() {});

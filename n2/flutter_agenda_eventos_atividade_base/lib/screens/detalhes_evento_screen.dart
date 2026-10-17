@@ -16,12 +16,28 @@ class DetalhesEventoScreen extends StatefulWidget {
 }
 
 class _DetalhesEventoScreenState extends State<DetalhesEventoScreen> {
-  // TODO_ATIVIDADE_07
+  // TODO_ATIVIDADE_07 (FEITO)
   // Use showDialog<bool>. Se o usuario confirmar, volte para a Home com
   // Navigator.pop(context, true). Cancelar deve fechar apenas o dialogo.
   Future<void> _confirmarExclusao() async {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('TODO 07: implementar exclusao.')),
+    showDialog<String>(
+      context: context,
+      builder: (BuildContext dialogContext) => AlertDialog(
+        title: const Text('Você realmente deseja excluir essa tarefa?'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.pop(context, 'Cancel'),
+            child: const Text('Cancelar'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(dialogContext);
+              Navigator.pop(context, true);
+            },
+            child: const Text('Confirmar'),
+          ),
+        ],
+      ),
     );
   }
 

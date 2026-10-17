@@ -18,7 +18,7 @@ Transformar `categorias` em `FilterChip` usando `map()` e `toList()`.
 ## TODO 06 - estado local ✅
 Alternar `evento.inscrito` usando `setState()`.
 
-## TODO 07 - excluir
+## TODO 07 - excluir ✅
 Confirmar a exclusao e retornar `true` para a Home.
 
 ## TODO 08 - detalhes

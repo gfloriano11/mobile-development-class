@@ -25,14 +25,16 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final _buscaController = TextEditingController();
   late final List<Evento> _eventos;
+  late final List<String> categorias;
 
-  // final String _categoria = 'Todos';
+  String _categoria = 'Todos';
   bool _somenteInscritos = false;
 
   @override
   void initState() {
     super.initState();
     _eventos = criarEventosIniciais();
+    categorias = criarCategorias();
   }
 
   @override
@@ -46,26 +48,21 @@ class _HomeScreenState extends State<HomeScreen> {
   // esta inscrito. Consulte o enunciado antes de implementar.
   List<Evento> get _eventosFiltrados {
     final value = _buscaController.value.text.trim().toLowerCase();
-    if (value.isNotEmpty && _somenteInscritos) {
-      return _eventos
-          .where((e) =>
-              (e.categoria.toLowerCase().contains(value) ||
-                  e.titulo.toLowerCase().contains(value) ||
-                  e.titulo.toLowerCase().contains(value)) &&
-              e.inscrito)
-          .toList();
-    }
-    if (value.isNotEmpty) {
-      return _eventos
-          .where((e) => (e.categoria.toLowerCase().contains(value) ||
-              e.titulo.toLowerCase().contains(value) ||
-              e.titulo.toLowerCase().contains(value)))
-          .toList();
-    }
-    if (_somenteInscritos) {
-      return _eventos.where((e) => e.inscrito).toList();
-    }
-    return _eventos;
+    final cleanedCategory = _categoria.toLowerCase().trim();
+
+    return _eventos.where((e) {
+      final searchConditional = value.isEmpty ||
+          e.titulo.toLowerCase().contains(value) ||
+          e.descricao.toLowerCase().contains(value) ||
+          (value.isNotEmpty && e.categoria.toLowerCase().contains(value));
+
+      final categoryConditional = cleanedCategory == "todos" ||
+          e.categoria.toLowerCase().contains(cleanedCategory);
+
+      final subscribedConditional = !_somenteInscritos || e.inscrito;
+
+      return searchConditional && subscribedConditional && categoryConditional;
+    }).toList();
   }
 
   // TODO_ATIVIDADE_02 (FEITO)
@@ -128,6 +125,16 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  void changeCategory(String category) {
+    setState(() {
+      if (_categoria == category) {
+        _categoria = "Todos";
+        return;
+      }
+      _categoria = category;
+    });
   }
 
   // TODO_ATIVIDADE_04 (FEITO)
@@ -218,11 +225,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Wrap(
                   spacing: 8,
                   runSpacing: 8,
-                  // TODO_ATIVIDADE_05
+                  // TODO_ATIVIDADE_05 (FEITO)
                   // Use Iterable.map() para transformar cada String da lista
                   // categorias em um FilterChip e finalize com toList().
-                  children: const [
-                    Chip(label: Text('TODO 05: categorias')),
+                  children: [
+                    ...categorias.map((c) => FilterChip(
+                          label: Text(c),
+                          onSelected: (bool value) => changeCategory(c),
+                          selected: _categoria == c,
+                        ))
                   ],
                 ),
               ),

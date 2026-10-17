@@ -22,7 +22,8 @@ List<Evento> criarEventosIniciais() {
       titulo: 'Como montar um portfolio',
       local: 'Sala E14',
       categoria: 'Carreira',
-      descricao: 'Encontro sobre portfolio, apresentacao de projetos e entrevistas.',
+      descricao:
+          'Encontro sobre portfolio, apresentacao de projetos e entrevistas.',
     ),
     Evento(
       id: 4,
@@ -31,5 +32,14 @@ List<Evento> criarEventosIniciais() {
       categoria: 'Pesquisa',
       descricao: 'Conversa sobre projetos, orientacao e producao academica.',
     ),
+  ];
+}
+
+List<String> criarCategorias() {
+  return [
+    'Tecnologia',
+    'Jogos',
+    'Carreira',
+    'Pesquisa',
   ];
 }

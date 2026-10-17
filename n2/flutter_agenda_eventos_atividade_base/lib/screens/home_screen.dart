@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_agenda_eventos_atividade_base/screens/detalhes_evento_screen.dart';
+import 'package:flutter_agenda_eventos_atividade_base/screens/entrada_screen.dart';
+import 'package:flutter_agenda_eventos_atividade_base/screens/novo_evento_screen.dart';
 
 import '../data/eventos_iniciais.dart';
 import '../models/evento.dart';
@@ -24,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final _buscaController = TextEditingController();
   late final List<Evento> _eventos;
 
-  String _categoria = 'Todos';
+  // final String _categoria = 'Todos';
   bool _somenteInscritos = false;
 
   @override
@@ -49,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
           .where((e) =>
               (e.categoria.toLowerCase().contains(value) ||
                   e.titulo.toLowerCase().contains(value) ||
-                  e.titulo.toLowerCase().contains(value)) ||
+                  e.titulo.toLowerCase().contains(value)) &&
               e.inscrito)
           .toList();
     }
@@ -71,30 +73,39 @@ class _HomeScreenState extends State<HomeScreen> {
   // Se voltar true, remova o evento da lista. Caso contrario, atualize a tela.
   Future<void> _abrirDetalhes(Evento evento) async {
     final result = await Navigator.push<bool>(
-      context,
-      MaterialPageRoute(
-        builder: (BuildContext context) =>DetalhesEventoScreen(evento: evento)
-      )
-    );
+        context,
+        MaterialPageRoute(
+            builder: (BuildContext context) =>
+                DetalhesEventoScreen(evento: evento)));
 
     if (result == true) {
       setState(() {
-        _eventos = _eventos
-          .where((e) => e.id != evento.id)
-          .toList();
+        _eventos = _eventos.where((e) => e.id != evento.id).toList();
       });
     } else {
       setState(() {});
     }
   }
 
-  // TODO_ATIVIDADE_03
+  // TODO_ATIVIDADE_03 (FEITO)
   // Abra NovoEventoScreen e aguarde um Evento. Se vier um resultado,
   // adicione-o a lista usando setState() e mostre um SnackBar.
   Future<void> _adicionarEvento() async {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('TODO 03: implementar novo evento.')),
-    );
+    final result = await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (BuildContext context) => NovoEventoScreen()));
+
+    if (!mounted) return;
+
+    if (result != null) {
+      setState(() {
+        _eventos.add(result);
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Feito')),
+      );
+    }
   }
 
   Future<void> _abrirConfiguracoes() async {
@@ -119,12 +130,29 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // TODO_ATIVIDADE_04
+  // TODO_ATIVIDADE_04 (FEITO)
   // Exiba um AlertDialog de confirmacao e, se o usuario confirmar,
   // retorne a EntradaScreen limpando a pilha de rotas com pushAndRemoveUntil.
   Future<void> _sair() async {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('TODO 04: implementar saida.')),
+    showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text('Você realmente deseja sair?'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.pop(context, 'Cancel'),
+            child: const Text('Cancelar'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => EntradaScreen()),
+                ModalRoute.withName("/")),
+            child: const Text('Sair'),
+          ),
+        ],
+      ),
     );
   }
 

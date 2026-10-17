@@ -264,12 +264,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             // TODO_ATIVIDADE_06 (FEITO)
                             // Inverta evento.inscrito dentro de setState().
                             onInscricao: () => toggleSubscription(evento),
-                            // ScaffoldMessenger.of(context).showSnackBar(
-                            //   const SnackBar(
-                            //     content: Text('TODO 06: alterar inscricao.'),
-                            //   ),
-                            // );
-                            // },
                           );
                         },
                       ),

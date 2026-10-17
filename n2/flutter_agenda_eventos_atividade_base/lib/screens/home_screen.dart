@@ -137,6 +137,12 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  void toggleSubscription(Evento e) {
+    setState(() {
+      e.inscrito = !e.inscrito;
+    });
+  }
+
   // TODO_ATIVIDADE_04 (FEITO)
   // Exiba um AlertDialog de confirmacao e, se o usuario confirmar,
   // retorne a EntradaScreen limpando a pilha de rotas com pushAndRemoveUntil.
@@ -166,7 +172,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final filtrados = _eventosFiltrados;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Eventos'),
@@ -256,15 +261,15 @@ class _HomeScreenState extends State<HomeScreen> {
                           return EventoCard(
                             evento: evento,
                             onTap: () => _abrirDetalhes(evento),
-                            // TODO_ATIVIDADE_06
+                            // TODO_ATIVIDADE_06 (FEITO)
                             // Inverta evento.inscrito dentro de setState().
-                            onInscricao: () {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('TODO 06: alterar inscricao.'),
-                                ),
-                              );
-                            },
+                            onInscricao: () => toggleSubscription(evento),
+                            // ScaffoldMessenger.of(context).showSnackBar(
+                            //   const SnackBar(
+                            //     content: Text('TODO 06: alterar inscricao.'),
+                            //   ),
+                            // );
+                            // },
                           );
                         },
                       ),

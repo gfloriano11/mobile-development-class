@@ -1,21 +1,21 @@
 # Guia dos TODOs
 
-## TODO 01 - filtro
+## TODO 01 - filtro ✅
 Usar texto, categoria e inscricao para produzir a lista exibida.
 
-## TODO 02 - detalhes
+## TODO 02 - detalhes ✅
 Abrir `DetalhesEventoScreen` com `Navigator.push`, receber `bool` e reagir ao retorno.
 
-## TODO 03 - novo evento
+## TODO 03 - novo evento ✅
 Abrir `NovoEventoScreen`, receber `Evento`, inserir na lista e mostrar `SnackBar`.
 
-## TODO 04 - sair
+## TODO 04 - sair ✅
 Confirmar com `AlertDialog` e limpar a pilha com `pushAndRemoveUntil`.
 
-## TODO 05 - map()
+## TODO 05 - map() ✅
 Transformar `categorias` em `FilterChip` usando `map()` e `toList()`.
 
-## TODO 06 - estado local
+## TODO 06 - estado local ✅
 Alternar `evento.inscrito` usando `setState()`.
 
 ## TODO 07 - excluir

@@ -12,13 +12,15 @@ class _ConfiguracoesScreenState extends State<ConfiguracoesScreen> {
   bool _modoCompacto = false;
   String _temaLista = 'Padrao';
 
-  // TODO_ATIVIDADE_10
+  // TODO_ATIVIDADE_10 (Feito)
   // Retorne para a tela anterior um Map<String, bool> contendo as chaves
   // 'notificacoes' e 'modoCompacto'.
   void _salvar() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('TODO 10: devolver configuracoes.')),
-    );
+    final Map<String, bool> configs = {
+      "notificacoes": _notificacoes,
+      "modoCompacto": _modoCompacto,
+    };
+    Navigator.pop(context, configs);
   }
 
   @override
@@ -51,7 +53,8 @@ class _ConfiguracoesScreenState extends State<ConfiguracoesScreen> {
               items: const [
                 DropdownMenuItem(value: 'Padrao', child: Text('Padrao')),
                 DropdownMenuItem(value: 'Compacto', child: Text('Compacto')),
-                DropdownMenuItem(value: 'Confortavel', child: Text('Confortavel')),
+                DropdownMenuItem(
+                    value: 'Confortavel', child: Text('Confortavel')),
               ],
               onChanged: (valor) {
                 if (valor != null) {

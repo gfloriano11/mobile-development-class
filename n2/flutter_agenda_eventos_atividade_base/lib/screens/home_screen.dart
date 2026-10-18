@@ -88,10 +88,13 @@ class _HomeScreenState extends State<HomeScreen> {
   // Abra NovoEventoScreen e aguarde um Evento. Se vier um resultado,
   // adicione-o a lista usando setState() e mostre um SnackBar.
   Future<void> _adicionarEvento() async {
+    final lastID = _eventos.map((e) => e.id).reduce((a, b) => a > b ? a : b);
     final result = await Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (BuildContext context) => NovoEventoScreen()));
+            builder: (BuildContext context) => NovoEventoScreen(
+                  lastID: lastID,
+                )));
 
     if (!mounted) return;
 

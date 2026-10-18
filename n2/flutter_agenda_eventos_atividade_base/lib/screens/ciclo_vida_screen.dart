@@ -14,18 +14,28 @@ class _CicloVidaScreenState extends State<CicloVidaScreen> {
 
   @override
   void initState() {
-    super.initState();
-
-    // TODO_ATIVIDADE_11
+    // TODO_ATIVIDADE_11 (FEITO)
     // Crie AppLifecycleListener e use onStateChange.
     // No callback: atualize _estadoAtual, adicione o nome do estado em
     // _historico e use setState(). Tambem registre com debugPrint().
+    _listener = AppLifecycleListener(
+      onStateChange: (AppLifecycleState state) {
+        setState(() {
+          _estadoAtual = state.name;
+          _historico.add(_estadoAtual);
+        });
+        debugPrint('Estado do aplicativo: $_estadoAtual');
+      },
+    );
+
+    super.initState();
   }
 
   @override
   void dispose() {
-    // TODO_ATIVIDADE_12
+    // TODO_ATIVIDADE_12 (FEITO)
     // Libere a assinatura do AppLifecycleListener antes de super.dispose().
+    _listener?.dispose();
     super.dispose();
   }
 

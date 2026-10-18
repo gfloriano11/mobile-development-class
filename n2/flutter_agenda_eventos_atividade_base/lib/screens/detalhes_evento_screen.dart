@@ -41,6 +41,12 @@ class _DetalhesEventoScreenState extends State<DetalhesEventoScreen> {
     );
   }
 
+  void toggleSubscription() {
+    setState(() {
+      widget.evento.inscrito = !widget.evento.inscrito;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final evento = widget.evento;
@@ -95,17 +101,13 @@ class _DetalhesEventoScreenState extends State<DetalhesEventoScreen> {
             const SizedBox(height: 16),
             Text(evento.descricao),
             const SizedBox(height: 24),
-            // TODO_ATIVIDADE_08
+            // TODO_ATIVIDADE_08 (FEITO)
             // Faça o botao alternar evento.inscrito com setState().
             // O texto do botao deve mudar conforme o estado.
             FilledButton.icon(
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('TODO 08: alterar inscricao.')),
-                );
-              },
+              onPressed: () => toggleSubscription(),
               icon: const Icon(Icons.how_to_reg),
-              label: const Text('TODO 08'),
+              label: Text(evento.inscrito ? 'Desincrever-se' : 'Inscrever-se'),
             ),
           ],
         ),

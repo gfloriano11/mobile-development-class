@@ -1,10 +1,13 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
-import '../models/evento.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_agenda_eventos_atividade_base/models/evento.dart';
+
 import '../utils/categorias.dart';
 
 class NovoEventoScreen extends StatefulWidget {
-  const NovoEventoScreen({super.key});
+  final int lastID;
+  const NovoEventoScreen({super.key, required this.lastID});
 
   @override
   State<NovoEventoScreen> createState() => _NovoEventoScreenState();
@@ -35,9 +38,42 @@ class _NovoEventoScreenState extends State<NovoEventoScreen> {
   // 4) crie um Evento com os dados dos controllers;
   // 5) devolva o objeto com Navigator.pop(context, evento).
   Future<void> _salvar() async {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('TODO 09: implementar cadastro.')),
-    );
+    final title = _tituloController.text.trim();
+    final description = _descricaoController.text.trim();
+    final location = _localController.text.trim();
+
+    final isAnyFieldEmpty =
+        title.isEmpty || description.isEmpty || location.isEmpty;
+
+    setState(() {
+      _salvando = true;
+    });
+
+    if (isAnyFieldEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Preencha todos os campos.')),
+      );
+      setState(() {
+        _salvando = false;
+      });
+      return;
+    }
+
+    sleep(Duration(milliseconds: 600));
+
+    final createdEvent = Evento(
+        categoria: _categoria,
+        descricao: description,
+        id: widget.lastID + 1,
+        local: location,
+        titulo: title,
+        inscrito: _inscrito);
+
+    setState(() {
+      _salvando = false;
+    });
+
+    Navigator.pop(context, createdEvent);
   }
 
   @override

@@ -21,17 +21,17 @@ Alternar `evento.inscrito` usando `setState()`.
 ## TODO 07 - excluir ✅
 Confirmar a exclusao e retornar `true` para a Home.
 
-## TODO 08 - detalhes
+## TODO 08 - detalhes ✅
 Alternar a inscricao na tela de detalhes e atualizar o texto do botao.
 
-## TODO 09 - formulario
+## TODO 09 - formulario ✅
 Validar, mostrar carregamento, construir `Evento` e devolver o objeto.
 
-## TODO 10 - Map<K,V>
+## TODO 10 - Map<K,V> ✅
 Retornar duas configuracoes em um `Map<String, bool>`.
 
-## TODO 11 - ciclo de vida
+## TODO 11 - ciclo de vida ✅
 Criar `AppLifecycleListener` e registrar mudancas de `AppLifecycleState`.
 
-## TODO 12 - dispose
+## TODO 12 - dispose ✅
 Liberar o listener em `dispose()`.

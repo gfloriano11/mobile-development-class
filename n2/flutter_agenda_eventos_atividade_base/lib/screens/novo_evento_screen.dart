@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_agenda_eventos_atividade_base/models/evento.dart';
 
@@ -38,28 +36,23 @@ class _NovoEventoScreenState extends State<NovoEventoScreen> {
   // 4) crie um Evento com os dados dos controllers;
   // 5) devolva o objeto com Navigator.pop(context, evento).
   Future<void> _salvar() async {
-    final title = _tituloController.text.trim();
-    final description = _descricaoController.text.trim();
-    final location = _localController.text.trim();
-
-    final isAnyFieldEmpty =
-        title.isEmpty || description.isEmpty || location.isEmpty;
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
 
     setState(() {
       _salvando = true;
     });
 
-    if (isAnyFieldEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Preencha todos os campos.')),
-      );
-      setState(() {
-        _salvando = false;
-      });
-      return;
-    }
+    await Future.delayed(
+      const Duration(milliseconds: 600),
+    );
 
-    sleep(Duration(milliseconds: 600));
+    if (!mounted) return;
+
+    final title = _tituloController.text.trim();
+    final description = _descricaoController.text.trim();
+    final location = _localController.text.trim();
 
     final createdEvent = Evento(
         categoria: _categoria,

@@ -54,6 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
       final searchConditional = value.isEmpty ||
           e.titulo.toLowerCase().contains(value) ||
           e.descricao.toLowerCase().contains(value) ||
+          e.local.toLowerCase().contains(value) ||
           (value.isNotEmpty && e.categoria.toLowerCase().contains(value));
 
       final categoryConditional = cleanedCategory == "todos" ||
@@ -75,10 +76,16 @@ class _HomeScreenState extends State<HomeScreen> {
             builder: (BuildContext context) =>
                 DetalhesEventoScreen(evento: evento)));
 
+    if (!mounted) return;
+
     if (result == true) {
       setState(() {
         _eventos.removeWhere((e) => e.id == evento.id);
       });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Evento deletado com sucesso.')),
+      );
     } else {
       setState(() {});
     }
@@ -161,10 +168,11 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           TextButton(
             onPressed: () => Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) => EntradaScreen()),
-                ModalRoute.withName("/")),
+              context,
+              MaterialPageRoute(
+                  builder: (BuildContext context) => EntradaScreen()),
+              (_) => false,
+            ),
             child: const Text('Sair'),
           ),
         ],
@@ -237,11 +245,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   // Use Iterable.map() para transformar cada String da lista
                   // categorias em um FilterChip e finalize com toList().
                   children: [
-                    ...categorias.map((c) => FilterChip(
-                          label: Text(c),
-                          onSelected: (bool value) => changeCategory(c),
-                          selected: _categoria == c,
-                        ))
+                    ...categorias
+                        .map((c) => FilterChip(
+                              label: Text(c),
+                              onSelected: (bool value) => changeCategory(c),
+                              selected: _categoria == c,
+                            ))
+                        .toList()
                   ],
                 ),
               ),

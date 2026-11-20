@@ -18,11 +18,10 @@ class _TodoState extends State<Todo> {
     _loadTodos();
   }
 
-  // READ
   Future<void> _loadTodos() async {
     try {
       final response = await supabase
-          .from('todos')
+          .from('items')
           .select()
           .order('created_at', ascending: false);
 
@@ -40,14 +39,8 @@ class _TodoState extends State<Todo> {
     }
   }
 
-  // CREATE / UPDATE
   Future<void> _showTodoDialog({Map<String, dynamic>? todo}) async {
     final titleController = TextEditingController(text: todo?['title'] ?? '');
-
-    final descriptionController = TextEditingController(
-      text: todo?['description'] ?? '',
-    );
-
     final formKey = GlobalKey<FormState>();
 
     final result = await showDialog<bool>(
@@ -73,15 +66,6 @@ class _TodoState extends State<Todo> {
                     return null;
                   },
                 ),
-                const SizedBox(height: 16),
-                TextFormField(
-                  controller: descriptionController,
-                  maxLines: 3,
-                  decoration: const InputDecoration(
-                    labelText: 'Descrição',
-                    hintText: 'Adicione detalhes (opcional)',
-                  ),
-                ),
               ],
             ),
           ),
@@ -105,20 +89,16 @@ class _TodoState extends State<Todo> {
 
     if (result == true) {
       try {
-        final data = {
-          'title': titleController.text.trim(),
-          'description': descriptionController.text.trim().isEmpty
-              ? null
-              : descriptionController.text.trim(),
-        };
-
         if (todo == null) {
-          await supabase.from('todos').insert({
-            ...data,
+          await supabase.from('items').insert({
+            'name': titleController.text.trim(),
             'user_id': supabase.auth.currentUser!.id,
           });
         } else {
-          await supabase.from('todos').update(data).eq('id', todo['id']);
+          await supabase
+              .from('items')
+              .update({'name': titleController.text.trim()})
+              .eq('id', todo['id']);
         }
 
         await _loadTodos();
@@ -131,27 +111,11 @@ class _TodoState extends State<Todo> {
     }
 
     titleController.dispose();
-    descriptionController.dispose();
   }
 
-  // UPDATE
-  Future<void> _toggleTodo(Map<String, dynamic> todo) async {
-    try {
-      await supabase
-          .from('todos')
-          .update({'is_completed': !todo['is_completed']})
-          .eq('id', todo['id']);
-
-      await _loadTodos();
-    } catch (error) {
-      _showMessage('Não foi possível atualizar a tarefa.');
-    }
-  }
-
-  // DELETE
   Future<void> _deleteTodo(String id) async {
     try {
-      await supabase.from('todos').delete().eq('id', id);
+      await supabase.from('items').delete().eq('id', id);
 
       await _loadTodos();
       _showMessage('Tarefa excluída!');
@@ -177,10 +141,6 @@ class _TodoState extends State<Todo> {
 
   @override
   Widget build(BuildContext context) {
-    final completedCount = _todos
-        .where((todo) => todo['is_completed'] == true)
-        .length;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -239,14 +199,8 @@ class _TodoState extends State<Todo> {
                           style: Theme.of(context).textTheme.headlineSmall,
                         ),
                         const SizedBox(height: 6),
-                        Text(
-                          '$completedCount de ${_todos.length} concluídas',
-                          style: const TextStyle(color: Color(0xFF8A96A6)),
-                        ),
                         const SizedBox(height: 20),
                         ..._todos.map((todo) {
-                          final completed = todo['is_completed'] == true;
-
                           return Card(
                             color: Colors.white,
                             elevation: 0,
@@ -260,21 +214,11 @@ class _TodoState extends State<Todo> {
                                 horizontal: 12,
                                 vertical: 6,
                               ),
-                              leading: Checkbox(
-                                value: completed,
-                                activeColor: const Color(0xFF789BCB),
-                                onChanged: (_) => _toggleTodo(todo),
-                              ),
                               title: Text(
-                                todo['title'],
+                                todo['name'],
                                 style: TextStyle(
                                   fontWeight: FontWeight.w600,
-                                  decoration: completed
-                                      ? TextDecoration.lineThrough
-                                      : null,
-                                  color: completed
-                                      ? Colors.grey
-                                      : const Color(0xFF263449),
+                                  color: const Color(0xFF263449),
                                 ),
                               ),
                               subtitle: todo['description'] != null

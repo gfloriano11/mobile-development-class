@@ -8,6 +8,7 @@ class AppDatabase {
 
   Database? _database;
 
+  // Inicializa o banco somente quando ele for solicitado pela primeira vez.
   Future<Database> get database async {
     if (_database != null) {
       return _database!;
@@ -18,13 +19,16 @@ class AppDatabase {
   }
 
   Future<Database> _initDatabase() async {
+    // Obtém o diretório de armazenamento local do aplicativo.
     final databasesPath = await getDatabasesPath();
     final path = join(databasesPath, 'my_collection.db');
 
+    // Abre o banco e cria a tabela caso ele ainda não exista.
     return openDatabase(
       path,
       version: 1,
       onCreate: (db, version) async {
+        // Define a estrutura dos registros de jogos armazenados.
         await db.execute('''
           CREATE TABLE games (
             id INTEGER PRIMARY KEY AUTOINCREMENT,

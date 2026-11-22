@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_e2/pages/collection.dart';
 
 void main() {
+  // Inicializa o Flutter antes de executar o aplicativo.
   WidgetsFlutterBinding.ensureInitialized();
 
   runApp(const MyApp());

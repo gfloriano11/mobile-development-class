@@ -13,6 +13,7 @@ class Game {
     required this.status,
   });
 
+  // Converte o objeto Game em um Map para ser armazenado no SQLite.
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -23,6 +24,7 @@ class Game {
     };
   }
 
+  // Converte um registro do banco em um objeto Game utilizado pelo aplicativo.
   factory Game.fromMap(Map<String, dynamic> map) {
     return Game(
       id: map['id'] as int?,
